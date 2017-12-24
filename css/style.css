@@ -16,11 +16,12 @@
 .quickAddForm{
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     width: 94%;
     left: 3%;
     top: 3%;
     height: 95%;
+    overflow: auto;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 6px;
@@ -35,6 +36,7 @@
     padding: 10px 12px;
     cursor: pointer;
     width: 20%;
+    height: 35px;
 }
 .cancel{
     background-color: #e42222e0;
@@ -116,8 +118,9 @@ input{
     border-radius: 5px;
     background: #fff;
     box-shadow: 0 0 0 50px rgba(0,0,0,.65);
-    font-size:20px;
+    font-size: 20px;
     margin: 0;
+    overflow: auto;
 }
 label{
     font-size: 20px;
