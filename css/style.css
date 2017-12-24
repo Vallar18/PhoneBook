@@ -34,6 +34,7 @@
     border: none;
     padding: 10px 12px;
     cursor: pointer;
+    width: 20%;
 }
 .cancel{
     background-color: #e42222e0;
