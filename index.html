@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Document</title>
+</head>
+<body>
+
+        <div class="container">
+            <div class="title">
+                <h1>Phone Book</h1>
+            </div>
+            <div class="quickAdd">
+                <button class="btn-add" id="quickAdd">+</button>
+            </div>
+            <div id="search" class="search-block">
+                <input id="input-search" class="search-control" type="text" placeholder="Search fo name">
+                <span class="clear-search">&times</span>
+            </div>
+
+            <form class="quickAddForm">
+                <h2>Добавление контакта</h2> <button class="btn-top cancel">x</button>
+                <label for="name">Name : </label><input type="text" id="name" class="formFields" name="name" autofocus >
+                <label for="surname">Surname : </label><input type="text" id="surname" class="formFields" name="surname" >
+                <label for="phone">Phone : </label><input type="tel" id="phone" class="formFields" name="phone" >
+                <label for="email">Email : </label><input type="email" id="email" class="formFields" name="email" >
+                <div class="buttons">
+                    <button class="btn" id="formReset" type="reset">Reset</button>
+                    <button class="btn" id="Add">Add</button>
+                    <button class="btn cancel" type="reset">Cancel</button>
+                </div>
+            </form>
+            <div class="addBook">
+            </div>
+        </div>
+
+<script type="text/javascript" src="js/phonebook.js" ></script>
+</body>
+</html>
