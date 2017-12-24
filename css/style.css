@@ -16,7 +16,7 @@
 .quickAddForm{
     display: none;
     flex-direction: column;
-    position: fixed;
+    position: absolute;
     width: 94%;
     left: 3%;
     top: 3%;
@@ -93,10 +93,10 @@
 }
 input{
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     border-radius: 3px;
     border: 3px solid lightgray;
-    padding: 10px 10px;
+    padding: 5px 10px;
     box-sizing: border-box;
     font-size: 18px;
 }
@@ -110,7 +110,7 @@ input{
     left: 3%;
     top: 3%;
     height: 95%;
-    padding: 20px;
+    padding: 10px 20px;
     box-sizing: border-box;
     border-radius: 5px;
     background: #fff;
