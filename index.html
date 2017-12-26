@@ -15,23 +15,28 @@
                 <h1>Phone Book</h1>
             </div>
             <div class="quickAdd">
-                <button class="btn-add" id="quickAdd">+</button>
+                <button class="btn-add js-quick-add">+</button>
             </div>
             <div id="search" class="search-block">
-                <input id="input-search" class="search-control" type="text" placeholder="Search fo name">
+                <input class="search-control js-input-search" type="text" placeholder="Search fo name">
                 <span class="clear-search">&times</span>
             </div>
-
-            <form class="quickAddForm">
-                <h2>Добавление контакта</h2> <button class="btn-top cancel">x</button>
-                <label for="name">Name : </label><input type="text" id="name" class="formFields" name="name" autofocus >
-                <label for="surname">Surname : </label><input type="text" id="surname" class="formFields" name="surname" >
-                <label for="phone">Phone : </label><input type="tel" id="phone" class="formFields" name="phone" >
-                <label for="email">Email : </label><input type="email" id="email" class="formFields" name="email" >
+            <div class="empty-contact">
+                <span>У Вас нема контактів</span>
+                <button class="btn btn-add-first-contact js-quick-add">
+                    Додати контакт
+                </button>
+            </div>
+            <form class="quick-add-form js-quick-add-form">
+                <h2>Добавление контакта</h2> <button class="btn-cancel cancel js-cancel-add-contact">+</button>
+                <label for="name">Name : </label><input type="text" id="name" class="js-form-fields" name="name" autofocus>
+                <label for="surname">Surname : </label><input type="text" id="surname" class="js-form-fields" name="surname" >
+                <label for="phone">Phone : </label><input type="tel" id="phone" class="js-form-fields" name="phone" >
+                <label for="email">Email : </label><input type="email" id="email" class="js-form-fields" name="email" >
                 <div class="buttons">
-                    <button class="btn" id="formReset" type="reset">Reset</button>
-                    <button class="btn" id="Add">Add</button>
-                    <button class="btn cancel" type="reset">Cancel</button>
+                    <button class="btn form-reset js-form-reset" type="reset">Reset</button>
+                    <button class="btn js-add-contact" >Add</button>
+                    <button class="btn cancel js-cancel-add-contact" type="reset">Cancel</button>
                 </div>
             </form>
             <div class="addBook">

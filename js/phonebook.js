@@ -1,11 +1,14 @@
 window.onload = function (){
-    var quickAddBtn = document.getElementById("quickAdd");
-    var AddBtn = document.getElementById("Add");
-    var cancelButtons = document.querySelectorAll(".cancel");
-    var formReset = document.getElementById("formReset");
-    var quickAddFormDiv = document.querySelector(".quickAddForm");
-    var searchInput = document.getElementById('input-search');
+    var quickAddBtn = document.querySelectorAll(".js-quick-add");
+    var AddBtn = document.querySelector(".js-add-contact");
+    var cancelButtons = document.querySelectorAll(".js-cancel-add-contact");
+    var formReset = document.querySelector(".js-form-reset");
+    var quickAddFormDiv = document.querySelector(".js-quick-add-form");
+    var searchInput = document.querySelector('.js-input-search');
     var clearSearchBtn = document.querySelector('.clear-search');
+    
+    var emptyContact = document.querySelector('.empty-contact');
+
     var arrRegExpName = [/^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/i,
         /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
         /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/im
@@ -20,9 +23,25 @@ window.onload = function (){
 
     var phoneBook = [];
 
-    quickAddBtn.addEventListener("click", function () {
-        quickAddFormDiv.style.display = "flex";
-    });
+    for (var i = 0; i<quickAddBtn.length; i++){
+        quickAddBtn[i].addEventListener("click", function (){
+            quickAddFormDiv.style.display = "flex";
+        });
+    }
+
+    var emptyLocalStorage = localStorage['addBook'] === "[]";
+    if(emptyLocalStorage){
+        emptyContact.style.display = "flex";
+    } else if (!emptyLocalStorage){
+        emptyContact.style.display = "none";
+    }
+    // for (var i = 0; i < phoneBook.length; i--){
+    //     if (i){
+    //         emptyContact.style.display = "none";
+    //     } else {
+    //         emptyContact.style.display = "none";
+    //     }
+    // }
 
     function handleInput(input,regexp) {
         input.addEventListener("keyup", function () {
@@ -48,7 +67,7 @@ window.onload = function (){
 
     searchInput.addEventListener("keyup", searchContact);
     function searchContact(){
-        var input = document.getElementById('input-search');
+        var input = document.querySelector('.js-input-search');
         var query = input.value.trim().toLowerCase();
         var contacts = document.querySelectorAll('.entryOne');
         if (query.length){
@@ -107,7 +126,7 @@ window.onload = function (){
     }
 
     function clearForm() {
-        var frm = document.querySelectorAll(".formFields");
+        var frm = document.querySelectorAll(".js-form-fields");
         for(var i=0;i<frm.length; i++){
             frm[i].value = '';
             frm[i].classList.remove('valid');
@@ -149,7 +168,7 @@ window.onload = function (){
         var str = '<ul class="entry js-info-about-contact">';
         str += '<li class="about">About Contact</li>';
         str += '<li class="name"> Name: <input type="text" class="input" readonly value="' + phoneBook[id].name + '" data-default-value="'+ phoneBook[id].name +'"></li>';
-        str += '<button class="btn js-cancel-info-block">x</button>';
+        str += '<button class="js-cancel-info-block">+</button>';
         str += '<li class="surname">Surname: <input type="text" class="input" readonly value="' + phoneBook[id].surname + '" data-default-value="'+ phoneBook[id].surname +'"></li>';
         str += '<li class="phone">Phone: <input type="text" class="input" readonly value="' + phoneBook[id].phone + '" data-default-value="'+ phoneBook[id].phone +'"></li>';
         str += '<li class="email">Email: <input type="text" class="input" readonly value="' + phoneBook[id].email + '" data-default-value="'+ phoneBook[id].email +'"></li>';
