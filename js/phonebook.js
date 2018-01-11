@@ -6,14 +6,12 @@ window.onload = function (){
     var quickAddFormDiv = document.querySelector(".js-quick-add-form");
     var searchInput = document.querySelector('.js-input-search');
     var clearSearchBtn = document.querySelector('.clear-search');
-    
     var emptyContact = document.querySelector('.empty-contact');
 
-    var arrRegExpName = [/^[a-z][a-z0-9]*?([-_][a-z0-9]+){0,2}$/i,
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-        /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/im
+    var arrRegExpName = [/^[а-яА-ЯёЁa-zA-Z]+$/,
+        /^\d{9,12}\d$/,
+        /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/
     ];
-
     var name = document.getElementById("name");
     var surname = document.getElementById("surname");
     var phone = document.getElementById("phone");
@@ -26,6 +24,7 @@ window.onload = function (){
     for (var i = 0; i<quickAddBtn.length; i++){
         quickAddBtn[i].addEventListener("click", function (){
             quickAddFormDiv.style.display = "flex";
+            // addBookDiv.querySelectorAll('.circles').style.display = "none";
         });
     }
 
@@ -35,13 +34,6 @@ window.onload = function (){
     } else if (!emptyLocalStorage){
         emptyContact.style.display = "none";
     }
-    // for (var i = 0; i < phoneBook.length; i--){
-    //     if (i){
-    //         emptyContact.style.display = "none";
-    //     } else {
-    //         emptyContact.style.display = "none";
-    //     }
-    // }
 
     function handleInput(input,regexp) {
         input.addEventListener("keyup", function () {
@@ -115,6 +107,22 @@ window.onload = function (){
     function addToBook() {
         var isNull = name.value!='' && surname.value!='' &&
             phone.value!='' && email.value!='' && !document.querySelectorAll(".invalid").length;
+        if  (name.value == '') {
+            alert('Name не заполнено');
+        }
+        else if (surname.value == '') {
+            alert('Surname не заполнено');
+        }
+        else if (phone.value == '') {
+            alert('Phone не заполнено');
+        }
+        else if (email.value == '') {
+            alert('Email не заполнено');
+        }
+        else if (document.querySelectorAll(".invalid").length){
+            alert('Проверте введенные данные');
+            return false;
+        }
         if(isNull){
             var obj = new jsonStructure(name.value,surname.value,phone.value,email.value);
             phoneBook.push(obj);
@@ -122,6 +130,7 @@ window.onload = function (){
             quickAddFormDiv.style.display = "none";
             clearForm();
             showPhoneBook();
+            window.location.reload();
         }
     }
 
@@ -138,6 +147,10 @@ window.onload = function (){
         var entryId= e.target.getAttribute("data-id");
         if(e.target.classList.contains("js-delete-contact")) {
             removeEntry(entryId)
+        }else if(e.target.classList.contains('js-show-delete-btn')) {
+            showDeleteBtn(entryId)
+        }else if(e.target.classList.contains('js-hide-delete-btn')){
+            hideDeleteBtn(entryId)
         }else if(e.target.classList.contains('js-open-contact-info')){
             showInfoAboutContact(entryId)
         }else if(e.target.classList.contains('js-cancel-info-block')){
@@ -151,10 +164,26 @@ window.onload = function (){
         }
     });
     function removeEntry(id) {
-            phoneBook.splice(id, 1);
-            localStorage['addBook'] = JSON.stringify(phoneBook);
-            showPhoneBook();
+            var confirmRemove = confirm('Удалить контакт ' + phoneBook[id].name + " " + phoneBook[id].surname + "?");
+            if (phoneBook[id] && confirmRemove){
+                phoneBook.splice(id, 1);
+                localStorage['addBook'] = JSON.stringify(phoneBook);
+                showPhoneBook();
+                window.location.reload();
+            }else{
+                showPhoneBook();
+            }
         }
+    function showDeleteBtn() {
+        addBookDiv.querySelector('.js-delete-contact').style.display = "block";
+        addBookDiv.querySelector('.js-hide-delete-btn').style.display = "block";
+        addBookDiv.querySelector('.circles').style.display = "none";
+    }
+    function hideDeleteBtn() {
+        addBookDiv.querySelector('.js-delete-contact').style.display = "none";
+        addBookDiv.querySelector('.js-hide-delete-btn').style.display = "none";
+        addBookDiv.querySelector('.circles').style.display = "block";
+    }
     function showInfoAboutContact(id) {
         var oneEntryInfo = addBookDiv.querySelector('.js-info-about-contact') || false,
             phoneBook = JSON.parse(localStorage['addBook']);
@@ -172,10 +201,10 @@ window.onload = function (){
         str += '<li class="surname">Surname: <input type="text" class="input" readonly value="' + phoneBook[id].surname + '" data-default-value="'+ phoneBook[id].surname +'"></li>';
         str += '<li class="phone">Phone: <input type="text" class="input" readonly value="' + phoneBook[id].phone + '" data-default-value="'+ phoneBook[id].phone +'"></li>';
         str += '<li class="email">Email: <input type="text" class="input" readonly value="' + phoneBook[id].email + '" data-default-value="'+ phoneBook[id].email +'"></li>';
-        str += '<button class="btn js-delete-contact" data-id="' + id + '">Delete</button>';
-        str += '<button class="btn js-change-info-contact" data-id="' + id + '">Change</button>';
-        str += '<button class="btn js-change-save-info-contact" style="display: none" data-id="' + id + '">Save</button>';
-        str += '<button class="btn js-change-cancel-info-contact" style="display: none" data-id="' + id + '">Cancel</button>';
+        str += '<button class="btn js-btn js-delete-contact" data-id="' + id + '">Delete</button>';
+        str += '<button class="btn js-btn js-change-info-contact" data-id="' + id + '">Change</button>';
+        str += '<button class="btn js-btn js-change-save-info-contact" style="display: none" data-id="' + id + '">Save</button>';
+        str += '<button class="btn js-btn js-change-cancel-info-contact" style="display: none" data-id="' + id + '">Cancel</button>';
         str += '</ul>';
         oneEntryInfo.innerHTML += str;
 
@@ -234,7 +263,6 @@ window.onload = function (){
             inputsInfoContact[i].value = inputsInfoContact[i].getAttribute('data-default-value');
         }
     }
-
     function showPhoneBook(){
         if(localStorage['addBook'] === undefined){
             localStorage['addBook'] = "[]";
@@ -242,9 +270,11 @@ window.onload = function (){
             phoneBook = JSON.parse(localStorage['addBook']);
             addBookDiv.innerHTML = '';
             for (var n in phoneBook){
-                var str = '<ul class="entryOne" data-id="' + n + '">';
-                str += '<li class="name"><a href="#" data-id="'+n+'"  class="js-open-contact-info">' + phoneBook[n].name + '</a></li>';
-                str += '<li class="surname"><a href="#" data-id="'+n+'"  class="js-open-contact-info">' + phoneBook[n].surname + '</a></li>';
+                var str = '<ul class="entryOne data-id="' + n + '">';
+                str += '<li class="name"><a href="#" data-id="'+n+'" class="js-open-contact-info">' + phoneBook[n].name + '</a></li>';
+                str += '<li class="surname"><a href="#" data-id="'+n+'" class="js-open-contact-info">' + phoneBook[n].surname + '</a></li>';
+                str += '<button class="delete-contact-btn js-delete-contact" style="display: none" data-id="' + n + '">Delete</button>';
+                str += '<button class="hide-delete-btn js-hide-delete-btn" style="display: none" data-id="' + n + '">Hide</button>';
                 str += '</ul>';
                 addBookDiv.innerHTML += str;
             }

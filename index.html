@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css" />
-    <title>Document</title>
+    <title>Phone Book</title>
 </head>
 <body>
 
@@ -22,17 +22,17 @@
                 <span class="clear-search">&times</span>
             </div>
             <div class="empty-contact">
-                <span>У Вас нема контактів</span>
+                <span>У Вас нет контактов</span>
                 <button class="btn btn-add-first-contact js-quick-add">
-                    Додати контакт
+                    Добавить контакт
                 </button>
             </div>
             <form class="quick-add-form js-quick-add-form">
                 <h2>Добавление контакта</h2> <button class="btn-cancel cancel js-cancel-add-contact">+</button>
-                <label for="name">Name : </label><input type="text" id="name" class="js-form-fields" name="name" autofocus>
+                <label for="name">Name : </label><input type="text" id="name" class="js-form-fields empty" name="name" autofocus>
                 <label for="surname">Surname : </label><input type="text" id="surname" class="js-form-fields" name="surname" >
                 <label for="phone">Phone : </label><input type="tel" id="phone" class="js-form-fields" name="phone" >
-                <label for="email">Email : </label><input type="email" id="email" class="js-form-fields" name="email" >
+                <label for="email">Email : </label><input type="email" id="email" class="js-form-fields" name="email">
                 <div class="buttons">
                     <button class="btn form-reset js-form-reset" type="reset">Reset</button>
                     <button class="btn js-add-contact" >Add</button>
